@@ -19,5 +19,7 @@ jobs:
         run: pwd
       - name: Run ls -al
         run: ls -al
+      - name: cat index.html
+        run: cat ./index.html
     
   
