@@ -11,18 +11,18 @@ jobs:
   setup:
     name: deploy
     runs-on: ubuntu-latest
-    env:
-        SECRET_KEY1: ${{secrets.SECRET_KEY1}}
-        SECRET_KEY2: ${{secrets.SECRET_KEY2}}
-        SECRET_KEY3: ${{secrets.LISTEN_PORT}}
     steps:
       - uses: actions/checkout@v3 # deploy 파일 보내야 함
       - name: .env 파일 생성
         run: |
-          echo "SECRET_KEY1=$SECRET_VALUE1" >> .env
-          echo "SECRET_KEY2=$SECRET_VALUE2" >> .env
+          echo "SECRET_KEY1=$SECRET_KEY1" >> .env
+          echo "SECRET_KEY2=$SECRET_KEY2" >> .env
           echo "LISTEN_PORT=$LISTEN_PORT" >> .env
           echo "NODE_ENV=production" >> .env
+        env:
+          SECRET_KEY1: ${{secrets.SECRET_KEY1}}
+          SECRET_KEY2: ${{secrets.SECRET_KEY2}}
+          LISTEN_PORT: ${{secrets.LISTEN_PORT}}
       - name: 현재 값들 찍어보기
         run: |
           ls
