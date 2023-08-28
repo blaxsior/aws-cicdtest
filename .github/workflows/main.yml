@@ -30,5 +30,5 @@ jobs:
           SECRET_VALUE1: ${{ secrets.SECRET_KEY1 }}
           SECRET_VALUE2: ${{ secrets.SECRET_KEY2 }}
           # do not this in production environment!
-      - name: echo .env file
-        run: echo ./.env
+      - name: cat .env file
+        run: cat ./.env
