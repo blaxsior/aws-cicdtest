@@ -1,0 +1,23 @@
+name: my-github-action2(github-checkout)
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+  repository_dispatch:
+jobs:
+  # job_name
+  build:
+    name: chekcout
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@3
+      - name: Run echo hello
+        run: echo hello world
+      - name: Run pwd
+        run: pwd
+      - name: Run ls -al
+        run: ls -al
+    
+  
