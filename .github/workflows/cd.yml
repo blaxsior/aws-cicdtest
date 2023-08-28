@@ -37,5 +37,5 @@ jobs:
           port: ${{secrets.AWS_PORT}}
           key: ${{secrets.AWS_KEY}}
           script: |
-            docker compose -f docker-compose.prod.yml stop
-            docker compose -f docker-compose.prod.yml up -d --build
+            docker-compose -f docker-compose.prod.yml stop
+            docker-compose -f docker-compose.prod.yml up -d --build
