@@ -24,8 +24,8 @@ jobs:
         # 이걸로 환경 정보 복사 가능
       - name: generate .env file
         run: |
-          echo "KEY1=$SECRET_VALUE1" >> .env
-          echo "KEY2=$SECRET_VALUE2" >> .env
+          echo "SECRET_KEY1=$SECRET_VALUE1" >> .env
+          echo "SECRET_KEY2=$SECRET_VALUE2" >> .env
         env:
           SECRET_VALUE1: ${{ secrets.SECRET_KEY1 }}
           SECRET_VALUE2: ${{ secrets.SECRET_KEY2 }}
