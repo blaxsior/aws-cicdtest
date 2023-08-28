@@ -1,0 +1,38 @@
+# https://stackoverflow.com/questions/62750603/github-actions-trigger-another-action-after-one-action-is-completed
+name: CD
+on:
+  workflow_run: 
+    workflows: ['CI']
+# https://docs.github.com/en/actions/learn-github-actions/expressions#format
+jobs:
+  setup:
+    name: deploy
+    runs-on: ubuntu-latest
+    env:
+      AWS_KEY: ${{secrets.AWS_KEY}}
+      AWS_PATH: ${{format('{0}@{1}',secrets.AWS_USER, secrets.AWS_PATH)}}
+
+    steps:
+      - uses: actions/checkout@v3 # deploy 파일 보내야 함
+      - name: .env 파일 생성
+        run: |
+          echo "SECRET_KEY1=$SECRET_VALUE1" >> .env
+          echo "SECRET_KEY2=$SECRET_VALUE2" >> .env
+          echo "LISTEN_PORT=$LISTEN_PORT" >> .env
+          echo "NODE_ENV=production" >> .env
+      
+      - name: key 파일 생성
+        run: | 
+          echo $AWS_KEY >> KEY.pem
+          chmod 400 KEY.pem
+      - name: 파일 전송
+        run: |
+          ${{format('scp -i "KEY.pem" {0} ${AWS_PATH}:/', './.env',)}}
+          ${{format('scp -i "KEY.pem" {0} ${AWS_PATH}:/', './docker-compose.prod.yml')}}
+      - name: ssh 접속
+        run: |
+          ssh -i "KEY.pem" $AWS_PATH
+      - name: docker-compose 실행
+        run: |
+          docker compose -f docker-compose.prod.yml stop
+          docker compose -f docker-compose.prod.yml up -d --build

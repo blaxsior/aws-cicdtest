@@ -6,9 +6,9 @@ services:
       - "80:80"
     env_file:
       - "./.env"
-  deploy:
-    restart_policy:
-      condition: on-failure
-      delay: 3s
-      max-attempts: 3
-      window: 120s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 3
+        window: 120s
