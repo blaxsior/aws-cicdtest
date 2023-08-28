@@ -26,9 +26,12 @@ jobs:
           echo $AWS_KEY >> KEY.pem
           chmod 400 KEY.pem
       - name: 파일 전송
+        env:
+          SEND_ENV: scp -i "KEY.pem" './.env' ${AWS_PATH}:/ 
+          SEND_COMPOSE_FILE: scp -i "KEY.pem" {0} ${AWS_PATH}:/
+
         run: |
-          ${{format('scp -i "KEY.pem" {0} ${AWS_PATH}:/', './.env',)}}
-          ${{format('scp -i "KEY.pem" {0} ${AWS_PATH}:/', './docker-compose.prod.yml')}}
+          
       - name: ssh 접속
         run: |
           ssh -i "KEY.pem" $AWS_PATH

@@ -32,3 +32,5 @@ jobs:
           # do not this in production environment!
       - name: cat .env file
         run: cat ./.env
+      - name: echo bracket
+        run: echo ${SECRET_VALUE1}hello

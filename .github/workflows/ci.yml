@@ -38,8 +38,6 @@ jobs:
           docker compose -f ./docker-compose.deploy.yml -p cicd-test build
           docker tag cicd-test-app blaxsior/cicd-test-app
           docker push blaxsior/cicd-test-app
-
-     
         env:
           SECRET_VALUE1: ${{secrets.SECRET_KEY1}}
           SECRET_VALUE2: ${{secrets.SECRET_KEY2}}
