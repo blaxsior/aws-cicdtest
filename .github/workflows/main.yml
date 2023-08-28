@@ -33,4 +33,4 @@ jobs:
       - name: cat .env file
         run: cat ./.env
       - name: echo bracket
-        run: echo ${SECRET_VALUE1}hello
+        run: echo $SECRET_VALUE1:/hello
