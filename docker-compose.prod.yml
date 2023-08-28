@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    image: cicd-test-app
+    ports: 
+      - "80:80"
+  deploy:
+    restart_policy:
+      condition: on-failure
+      delay: 3s
+      max-attempts: 3
+      window: 120s

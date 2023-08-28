@@ -27,13 +27,29 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      # 현재 폴더 찍어보기
-      - name: Run pwd
-        run: pwd
-      # 현재 상황 알아보기
-      - name: ls
-        run: ls
-
+      # # 현재 폴더 찍어보기
+      # - name: Run pwd
+      #   run: pwd
+      # # 현재 상황 알아보기
+      # - name: ls
+      #   run: ls
+      - name: .env 파일 생성
+        run: |
+          echo "SECRET_KEY1=$SECRET_VALUE1" >> .env
+          echo "SECRET_KEY2=$SECRET_VALUE2" >> .env
+          echo "LISTEN_PORT=$LISTEN_PORT" >> .env
+          echo "NODE_ENV=production" >> .env
+        env:
+          SECRET_VALUE1: ${{secrets.SECRET_KEY1}}
+          SECRET_VALUE2: ${{secrets.SECRET_KEY2}}
+          LISTEN_PORT: ${{secrets.LISTEN_PORT}}
+      - name: docker compose
+        run: |
+          docker compose -f docker-compose.push.yml -p cicd-test build
+          docker tag cicd-test-app blaxsior/cicd-test-app
+          docker push blaxsior/cicd-test-app
+        env:
+            PROJ_NAME: cicd-test 
 
       # -
       #   name: Build and push
