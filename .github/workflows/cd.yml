@@ -1,4 +1,5 @@
 # https://stackoverflow.com/questions/62750603/github-actions-trigger-another-action-after-one-action-is-completed
+# https://narup.tistory.com/223
 name: CD
 on:
   workflow_run: 
@@ -10,7 +11,10 @@ jobs:
   setup:
     name: deploy
     runs-on: ubuntu-latest
-
+    env:
+        SECRET_KEY1: ${{secrets.SECRET_KEY1}}
+        SECRET_KEY2: ${{secrets.SECRET_KEY2}}
+        SECRET_KEY3: ${{secrets.LISTEN_PORT}}
     steps:
       - uses: actions/checkout@v3 # deploy 파일 보내야 함
       - name: .env 파일 생성
@@ -19,7 +23,11 @@ jobs:
           echo "SECRET_KEY2=$SECRET_VALUE2" >> .env
           echo "LISTEN_PORT=$LISTEN_PORT" >> .env
           echo "NODE_ENV=production" >> .env
-      
+      - name: 현재 값들 찍어보기
+        run: |
+          ls
+          cat .env
+
       - name: 파일 전송
         uses: appleboy/scp-action@master
         with:

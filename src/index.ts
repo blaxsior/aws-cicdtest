@@ -10,4 +10,4 @@ app.get('/', (req,res,next) => {
     caution: "do not commit or log secret key on your deployment!"
   });
 });
-app.listen(process.env.LISTEN_PORT ?? 3000);
+app.listen(process.env.LISTEN_PORT ?? 80);
