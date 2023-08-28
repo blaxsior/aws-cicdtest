@@ -28,8 +28,8 @@ jobs:
       - name: Run pwd
         run: pwd
       # 현재 상황 알아보기
-      - name: ls -al
-        run: ls -al
+      - name: ls
+        run: ls
 
 
       # -
