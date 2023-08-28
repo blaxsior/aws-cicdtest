@@ -1,0 +1,16 @@
+name: My-CICD
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch: 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run pwd
+        run: pwd
+      - name: Run ls -al
+        run: ls -al
