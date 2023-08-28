@@ -28,6 +28,7 @@ jobs:
           port: ${{secrets.AWS_PORT}}
           key: ${{secrets.AWS_KEY}}
           source: "./.env, ./docker-compose.prod.yml"
+          target: "~/"
       - name: ssh 기반 배포
         uses: appleboy/ssh-action@master
         with:
