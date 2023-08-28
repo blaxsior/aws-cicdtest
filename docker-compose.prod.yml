@@ -4,6 +4,8 @@ services:
     image: blaxsior/cicd-test-app
     ports: 
       - "80:80"
+    env_file:
+      - "./.env"
   deploy:
     restart_policy:
       condition: on-failure
